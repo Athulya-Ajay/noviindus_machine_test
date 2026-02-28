@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:noviindus_test_app/features/auth/provider/auth_provider.dart';
-import 'package:noviindus_test_app/features/auth/screens/login_page.dart';
+import 'package:noviindus_test_app/features/home/provider/home_provider.dart';
+import 'package:noviindus_test_app/features/home/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,13 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const HomePage(),
       ),
-      home: LoginPage()
     );
   }
 }
-
