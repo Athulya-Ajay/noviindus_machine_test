@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noviindus_test_app/features/feeds/screens/my_feed_page.dart';
 import 'package:noviindus_test_app/features/home/provider/home_provider.dart';
 import 'package:noviindus_test_app/features/home/widgets/video_card.dart';
 import 'package:provider/provider.dart';
@@ -50,10 +51,20 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         const Spacer(),
-                        const CircleAvatar(
-                          radius: 22,
-                          backgroundImage: NetworkImage(
-                            "https://i.pravatar.cc/150?img=5",
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const MyFeedPage(),
+                              ),
+                            );
+                          },
+                          child: const CircleAvatar(
+                            radius: 22,
+                            backgroundImage: NetworkImage(
+                              "https://i.pravatar.cc/150?img=5",
+                            ),
                           ),
                         ),
                       ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noviindus_test_app/features/home/provider/home_provider.dart';
 import 'package:noviindus_test_app/features/home/screens/home_page.dart';
+import 'package:noviindus_test_app/features/video_upload/screens/video_upload_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const HomePage(),
+        home: VideoUploadPage(),
       ),
     );
   }
