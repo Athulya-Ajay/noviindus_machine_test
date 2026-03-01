@@ -24,11 +24,12 @@ class CategoryCard extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: provider.categories.length,
             itemBuilder: (context, index) {
+              final category = provider.categories[index];
               final isSelected =
-                  provider.selectedCategory == provider.categories[index];
+                  provider.selectedCategoryIds.contains(category["id"]);
 
               return GestureDetector(
-                onTap: () => provider.selectCategory(index),
+                onTap: () => provider.toggleCategory(category["id"]!),
                 child: Container(
                   margin: const EdgeInsets.only(right: 12),
                   padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -39,13 +40,13 @@ class CategoryCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25),
                     border: Border.all(
                       color: isSelected
-                          ? AppColors.primaryBlack
-                          : AppColors.primaryRed,
+                          ? AppColors.primaryRed
+                          : AppColors.darkGrey,
                     ),
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    provider.categories[index],
+                    category["title"]!,
                     style: TextStyle(
                       color: isSelected
                           ? AppColors.primarywhite
