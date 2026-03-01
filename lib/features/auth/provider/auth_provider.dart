@@ -54,7 +54,6 @@ class AuthProvider extends ChangeNotifier {
         ),
       );
 
-      // Navigate to Home
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const HomePage()),

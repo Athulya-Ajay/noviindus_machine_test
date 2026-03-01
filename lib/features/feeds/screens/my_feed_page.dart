@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noviindus_test_app/constants/app_colors.dart';
+import 'package:noviindus_test_app/features/home/model/home_model.dart';
 import 'package:noviindus_test_app/features/home/widgets/video_card.dart';
 
 class MyFeedPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class MyFeedPage extends StatelessWidget {
         child: ListView.separated(
           itemCount: 6,
           separatorBuilder: (_, __) => const SizedBox(height: 20),
-          itemBuilder: (_, index) => VideoCard(index: index),
+          itemBuilder: (_, index) => VideoCard(index: index, result: Results(),),
         ),
       ),
     );

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:noviindus_test_app/features/auth/provider/auth_provider.dart';
 import 'package:noviindus_test_app/features/auth/screens/login_page.dart';
 import 'package:noviindus_test_app/features/home/provider/home_provider.dart';
-import 'package:noviindus_test_app/features/home/screens/home_page.dart';
-import 'package:noviindus_test_app/features/video_upload/screens/video_upload_page.dart';
+import 'package:noviindus_test_app/features/home/provider/video_feed_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -19,6 +18,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => VideoFeedProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
