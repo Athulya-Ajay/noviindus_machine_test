@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:noviindus_test_app/features/auth/provider/auth_provider.dart';
 import 'package:noviindus_test_app/features/auth/screens/login_page.dart';
 import 'package:noviindus_test_app/features/home/provider/home_provider.dart';
@@ -6,6 +7,16 @@ import 'package:noviindus_test_app/features/home/provider/video_feed_provider.da
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, 
+      statusBarIconBrightness: Brightness.light, 
+      statusBarBrightness: Brightness.dark, 
+    ),
+  );
+
   runApp(const MyApp());
 }
 

@@ -7,7 +7,7 @@ import 'package:noviindus_test_app/features/home/model/home_model.dart';
 class HomeService {
   Future<HomeModel> fetchHomeDetails() async {
     final url = Uri.parse("${AppConstants.baseUrl}/home");
-    debugPrint("HOME API => $url");
+    debugPrint("HOME API $url");
 
     try {
       final response = await http.get(url);

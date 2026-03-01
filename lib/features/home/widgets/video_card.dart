@@ -9,11 +9,7 @@ class VideoCard extends StatefulWidget {
   final int index;
   final Results result;
 
-  const VideoCard({
-    super.key,
-    required this.index, 
-    required this.result,
-  });
+  const VideoCard({super.key, required this.index, required this.result});
 
   @override
   State<VideoCard> createState() => _VideoCardState();
@@ -26,10 +22,14 @@ class _VideoCardState extends State<VideoCard> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.result.video ??  "https://cdn.noviindus.com/3209829-hd_1280_720_25fps.mp4")
-      ..initialize().then((_) {
-        setState(() => _initialized = true);
-      });
+    _controller =
+        VideoPlayerController.network(
+            widget.result.video ??
+                "https://cdn.noviindus.com/3209829-hd_1280_720_25fps.mp4",
+          )
+          ..initialize().then((_) {
+            setState(() => _initialized = true);
+          });
   }
 
   @override
@@ -46,154 +46,149 @@ class _VideoCardState extends State<VideoCard> {
     final provider = context.watch<VideoFeedProvider>();
     final isPlaying = provider.activeIndex == widget.index;
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-             Row(
-              children: const [
-                CircleAvatar(
-                  radius: 18,
-                  backgroundImage: NetworkImage("https://i.pravatar.cc/150?img=3"),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: const [
+            CircleAvatar(
+              radius: 18,
+              backgroundImage: NetworkImage("https://i.pravatar.cc/150?img=3"),
+            ),
+            SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Anagha Krishna",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Anagha Krishna",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      "5 days ago",
-                      style: TextStyle(color: Colors.white54, fontSize: 12),
-                    ),
-                  ],
+                SizedBox(height: 2),
+                Text(
+                  "5 days ago",
+                  style: TextStyle(color: Colors.white54, fontSize: 12),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
-            AspectRatio(
-              aspectRatio:
-                  _initialized ? _controller.value.aspectRatio : 16 / 9,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  // Thumbnail
-                  if (!isPlaying)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        widget.result.image ??
+          ],
+        ),
+        const SizedBox(height: 12),
+        AspectRatio(
+          aspectRatio: _initialized ? _controller.value.aspectRatio : 16 / 9,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              if (!isPlaying)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    widget.result.image ??
                         "https://i.ibb.co/wrzL7vr/Screenshot-2024-11-04-at-2-43-45-PM.png",
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
+                ),
+
+              if (_initialized)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: VideoPlayer(_controller),
+                ),
+
+              if (!isPlaying)
+                GestureDetector(
+                  onTap: () {
+                    provider.playVideo(
+                      index: widget.index,
+                      controller: _controller,
+                    );
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.black54,
+                      shape: BoxShape.circle,
                     ),
-        
-                  // Video
-                  if (_initialized)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: VideoPlayer(_controller),
+                    padding: const EdgeInsets.all(14),
+                    child: const Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                      size: 30,
                     ),
-        
-                  // Play Button
-                  if (!isPlaying)
-                    GestureDetector(
-                      onTap: () {
-                        provider.playVideo(
-                          index: widget.index,
-                          controller: _controller,
-                        );
-                      },
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.black54,
-                          shape: BoxShape.circle,
+                  ),
+                ),
+
+              if (isPlaying)
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.black54,
+                    child: Column(
+                      children: [
+                        VideoProgressIndicator(
+                          _controller,
+                          allowScrubbing: true,
+                          colors: const VideoProgressColors(
+                            playedColor: Colors.red,
+                          ),
                         ),
-                        padding: const EdgeInsets.all(14),
-                        child: const Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-        
-                  // Controls
-                  if (isPlaying)
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        color: Colors.black54,
-                        child: Column(
+                        Row(
                           children: [
-                            VideoProgressIndicator(
-                              _controller,
-                              allowScrubbing: true,
-                              colors: const VideoProgressColors(
-                                playedColor: Colors.red,
+                            IconButton(
+                              icon: Icon(
+                                _controller.value.isPlaying
+                                    ? Icons.pause
+                                    : Icons.play_arrow,
+                                color: Colors.white,
                               ),
+                              onPressed: () {
+                                _controller.value.isPlaying
+                                    ? _controller.pause()
+                                    : _controller.play();
+                                setState(() {});
+                              },
                             ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(
-                                    _controller.value.isPlaying
-                                        ? Icons.pause
-                                        : Icons.play_arrow,
-                                    color: Colors.white,
+                            Text(
+                              '${_format(_controller.value.position)} / ${_format(_controller.value.duration)}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.fullscreen,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => FullScreenVideo(
+                                      controller: _controller,
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    _controller.value.isPlaying
-                                        ? _controller.pause()
-                                        : _controller.play();
-                                    setState(() {});
-                                  },
-                                ),
-                                Text(
-                                  '${_format(_controller.value.position)} / ${_format(_controller.value.duration)}',
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                                const Spacer(),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.fullscreen,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => FullScreenVideo(
-                                          controller: _controller,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
+                                );
+                              },
                             ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
-             Text(widget.result.description ??
-              "Description not available",
-              style: TextStyle(color: Colors.white70, fontSize: 14),
-            ),
-          ],
-        );
-      }
+                  ),
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          widget.result.description ?? "Description not available",
+          style: TextStyle(color: Colors.white70, fontSize: 14),
+        ),
+      ],
+    );
   }
+}

@@ -11,7 +11,6 @@ class VideoFeedProvider extends ChangeNotifier {
     required int index,
     required VideoPlayerController controller,
   }) {
-    // Pause previous video
     if (_activeController != null && _activeIndex != index) {
       _activeController!.pause();
     }

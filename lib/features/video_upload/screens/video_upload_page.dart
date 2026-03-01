@@ -25,7 +25,6 @@ class VideoUploadPage extends StatelessWidget {
               padding: const EdgeInsets.only(right: 12),
               child: TextButton(
                 onPressed: () {
-                  // API upload later
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
