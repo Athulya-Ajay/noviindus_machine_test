@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noviindus_test_app/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 import '../provider/video_upload_provider.dart';
 
@@ -16,25 +17,25 @@ class VideoPickerCard extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.white24),
-          color: Colors.black26,
+          border: Border.all(color: AppColors.darkGrey),
+          color: AppColors.bgBlack,
         ),
         child: provider.videoFile == null
             ? const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.upload, color: Colors.white70, size: 28),
+                  Icon(Icons.upload, color: AppColors.darkGrey, size: 28),
                   SizedBox(height: 10),
                   Text(
                     "Select a video from Gallery",
-                    style: TextStyle(color: Colors.white70),
+                    style: TextStyle(color: AppColors.darkGrey),
                   ),
                 ],
               )
             : const Center(
                 child: Icon(
                   Icons.video_library,
-                  color: Colors.red,
+                  color: AppColors.primaryRed,
                   size: 40,
                 ),
               ),

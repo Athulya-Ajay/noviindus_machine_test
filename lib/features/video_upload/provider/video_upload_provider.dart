@@ -8,8 +8,7 @@ class VideoUploadProvider extends ChangeNotifier {
   File? videoFile;
   File? thumbnailFile;
 
-  final TextEditingController descriptionController =
-      TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   final List<String> categories = [
     "Physics",
@@ -19,11 +18,16 @@ class VideoUploadProvider extends ChangeNotifier {
     "Micro Biology",
   ];
 
-  final Set<String> selectedCategories = {};
+  String? _selectedCategory;
+  String? get selectedCategory => _selectedCategory;
+
+  void selectCategory(int index) {
+    _selectedCategory = categories[index];
+    notifyListeners();
+  }
 
   Future<void> pickVideo() async {
-    final XFile? video =
-        await _picker.pickVideo(source: ImageSource.gallery);
+    final XFile? video = await _picker.pickVideo(source: ImageSource.gallery);
 
     if (video != null) {
       videoFile = File(video.path);
@@ -32,8 +36,7 @@ class VideoUploadProvider extends ChangeNotifier {
   }
 
   Future<void> pickThumbnail() async {
-    final XFile? image =
-        await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       thumbnailFile = File(image.path);
@@ -41,18 +44,18 @@ class VideoUploadProvider extends ChangeNotifier {
     }
   }
 
-  void toggleCategory(String category) {
-    selectedCategories.contains(category)
-        ? selectedCategories.remove(category)
-        : selectedCategories.add(category);
-    notifyListeners();
-  }
+  // void toggleCategory(String category) {
+  //   selectedCategories.contains(category)
+  //       ? selectedCategories.remove(category)
+  //       : selectedCategories.add(category);
+  //   notifyListeners();
+  // }
 
   void clearAll() {
     videoFile = null;
     thumbnailFile = null;
     descriptionController.clear();
-    selectedCategories.clear();
+    _selectedCategory = null;
     notifyListeners();
   }
 }

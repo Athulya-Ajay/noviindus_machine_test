@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:noviindus_test_app/constants/app_colors.dart';
 import 'package:noviindus_test_app/features/feeds/screens/my_feed_page.dart';
 import 'package:noviindus_test_app/features/home/provider/home_provider.dart';
 import 'package:noviindus_test_app/features/home/widgets/video_card.dart';
+import 'package:noviindus_test_app/features/video_upload/screens/video_upload_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,12 +14,17 @@ class HomePage extends StatelessWidget {
     return Consumer<HomeProvider>(
       builder: (context, provider, state) {
         return Scaffold(
-          backgroundColor: const Color(0xFF0E0E0E),
+          backgroundColor: AppColors.bgBlack,
           floatingActionButton: FloatingActionButton(
             shape: CircleBorder(),
-            backgroundColor: Colors.red,
-            onPressed: () {},
-            child: const Icon(Icons.add, color: Colors.white),
+            backgroundColor: AppColors.primaryRed,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (contex) => VideoUploadPage()),
+              );
+            },
+            child: const Icon(Icons.add, color: AppColors.primarywhite),
           ),
           body: SafeArea(
             child: SingleChildScrollView(
@@ -35,7 +42,7 @@ class HomePage extends StatelessWidget {
                             Text(
                               "Hello ${provider.userName}",
                               style: const TextStyle(
-                                color: Colors.white,
+                                color: AppColors.primarywhite,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -44,7 +51,7 @@ class HomePage extends StatelessWidget {
                             const Text(
                               "Welcome back to Section",
                               style: TextStyle(
-                                color: Colors.white54,
+                                color: AppColors.lightGrey,
                                 fontSize: 14,
                               ),
                             ),
@@ -87,18 +94,18 @@ class HomePage extends StatelessWidget {
                               ),
                               decoration: BoxDecoration(
                                 color: isSelected
-                                    ? Colors.red
+                                    ? AppColors.primaryRed
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(25),
-                                border: Border.all(color: Colors.white24),
+                                border: Border.all(color: AppColors.darkGrey),
                               ),
                               alignment: Alignment.center,
                               child: Text(
                                 provider.categories[index],
                                 style: TextStyle(
                                   color: isSelected
-                                      ? Colors.white
-                                      : Colors.white70,
+                                      ? AppColors.primarywhite
+                                      : AppColors.darkGrey,
                                 ),
                               ),
                             ),

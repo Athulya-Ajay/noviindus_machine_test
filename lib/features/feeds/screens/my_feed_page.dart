@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noviindus_test_app/constants/app_colors.dart';
 import 'package:noviindus_test_app/features/home/widgets/video_card.dart';
 
 class MyFeedPage extends StatelessWidget {
@@ -7,15 +8,15 @@ class MyFeedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0E0E0E),
+      backgroundColor: AppColors.bgBlack,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0E0E0E),
+        backgroundColor: AppColors.bgBlack,
         elevation: 0,
         title: const Text(
           "My Feed",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: AppColors.primarywhite),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.primarywhite),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

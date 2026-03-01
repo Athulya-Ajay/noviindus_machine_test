@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noviindus_test_app/constants/app_colors.dart';
 import 'package:noviindus_test_app/features/video_upload/widgets/category_card.dart';
 import 'package:provider/provider.dart';
 import '../provider/video_upload_provider.dart';
@@ -13,12 +14,12 @@ class VideoUploadPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => VideoUploadProvider(),
       child: Scaffold(
-        backgroundColor: const Color(0xFF0E0E0E),
+        backgroundColor: AppColors.bgBlack,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF0E0E0E),
+          backgroundColor: AppColors.bgBlack,
           elevation: 0,
-          leading: const BackButton(color: Colors.white),
-          title: const Text("Add Feeds", style: TextStyle(color: Colors.white)),
+          leading: const BackButton(color: AppColors.primarywhite),
+          title: const Text("Add Feeds", style: TextStyle(color: AppColors.primarywhite)),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 12),
@@ -32,12 +33,12 @@ class VideoUploadPage extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    color: AppColors.primaryRed,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Text(
                     "Share Post",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: AppColors.primarywhite),
                   ),
                 ),
               ),
@@ -56,7 +57,7 @@ class VideoUploadPage extends StatelessWidget {
               const SizedBox(height: 20),
               const Text(
                 "Add Description",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: AppColors.primarywhite),
               ),
               const SizedBox(height: 8),
 
@@ -65,12 +66,12 @@ class VideoUploadPage extends StatelessWidget {
                   return TextField(
                     controller: provider.descriptionController,
                     maxLines: 4,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: AppColors.primarywhite),
                     decoration: InputDecoration(
                       hintText: "Write something about this video...",
-                      hintStyle: const TextStyle(color: Colors.white54),
+                      hintStyle: const TextStyle(color: AppColors.lightGrey),
                       filled: true,
-                      fillColor: Colors.black26,
+                      fillColor: AppColors.bgBlack,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,

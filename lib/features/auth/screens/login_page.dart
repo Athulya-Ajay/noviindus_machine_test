@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:noviindus_test_app/constants/app_constants.dart';
+import 'package:noviindus_test_app/constants/app_colors.dart';
 import 'package:noviindus_test_app/features/auth/model/country_model.dart';
-import 'package:noviindus_test_app/features/home/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/auth_provider.dart';
@@ -149,13 +148,12 @@ class LoginPage extends StatelessWidget {
               const Spacer(),
 
               Center(
-                child: GestureDetector(
+                child: authProvider.isLoading 
+                ? CircularProgressIndicator(color: Colors.red,)
+                : GestureDetector(
                   onTap: authProvider.isValid
-                      ? () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                          );
+                      ? () async {
+                          await authProvider.verifyOtp(context);
                         }
                       : null,
                   child: Container(
@@ -186,8 +184,8 @@ class LoginPage extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: authProvider.isValid
-                                ? AppConstants.primaryRed
-                                : AppConstants.primaryRed.withOpacity(0.3),
+                                ? AppColors.primaryRed
+                                : AppColors.primaryRed.withOpacity(0.3),
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(
